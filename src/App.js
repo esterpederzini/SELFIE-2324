@@ -1,72 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';  // Importa i componenti necessari
 //import './CSS/Navbar.css'
-import Calendar from './views/calendar'
-import './index.css'; 
-import './CSS/calendar.css'
+import Calendar from './views/calendar.jsx'
 import Home from './views/home'
 import Login from './views/login'
 import Note from './views/note'
+import Pomodoro from './views/Pomodoro'
 import TimeMachine from './views/timeMachine'
+import './CSS/Pomodoro.css'
 
 const App = () => {
- 
-  const [route, setRoute] = useState(window.location.pathname);
-
-  // Funzione per gestire il routing
-  const handleNavigation = (path) => {
-    window.history.pushState({}, "", path);
-    setRoute(path);
-  };
-
-  // Ascolta i cambiamenti nell'URL per supportare il pulsante indietro/avanti
-  useEffect(() => {
-    const onPopState = () => setRoute(window.location.pathname);
-    window.addEventListener('popstate', onPopState);
-    
-    return () => {
-      window.removeEventListener('popstate', onPopState);
-    };
-  }, []);
-
-  // Funzione per scegliere cosa visualizzare
-  const renderRoute = () => {
-    switch (route) {
-      case '/':
-        return <Home />;
-
-      case '/calendario':
-        return <Calendar />;
-
-      case '/login':
-        return <Login />;      
-        
-      case '/note':
-        return <Note />;
-
-      case '/timeMachine':
-        return <TimeMachine />;
-        
-      default:
-        return <h1>404 - Page Not Found</h1>;
-    }
-  };
-
   return (
-    <div className='container'>
-     <nav>
-        {/* Links che modificano l'URL senza ricaricare */}
-        
-        <button className='nav-button' onClick={() => handleNavigation('/')}>Home</button>
-        <button className='nav-button' onClick={() => handleNavigation('/calendario')}>Calendario</button>
-        <button className='nav-button' onClick={() => handleNavigation('/note')}>Note</button>
-        <button className='nav-button' onClick={() => handleNavigation('/timeMachine')}>Time machine</button>
-        <button className='nav-button' onClick={() => handleNavigation('/login')}>Login</button>
-      </nav>
+    <Router> {/* Usa Router per abilitare la navigazione */}
+      <div className="app-container">
+        <nav>
+          {/* Usa Link per la navigazione tra le rotte */}
+          <Link className="nav-button" to="/">Home</Link>
+          <Link className="nav-button" to="/Pomodoro">Pomodoro</Link>
+          <Link className="nav-button" to="/Calendario">Calendario</Link>
+          <Link className="nav-button" to="/Note">Note</Link>
+          <Link className="nav-button" to="/Timemachine">Time machine</Link>
+          <Link className="nav-button" to="/Login">Login</Link>
+        </nav>
 
-      {/* Renderizza il contenuto in base alla route */ }
-      {renderRoute()}
-      <Calendar />
-    </div>
+        {/* Le rotte vengono gestite da Routes */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Pomodoro" element={<Pomodoro />} />
+          <Route path="/calendar" element={<Calendar />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/note" element={<Note />} />
+          <Route path="/timeMachine" element={<TimeMachine />} />
+          <Route path="*" element={<h1>404 - Page Not Found</h1>} /> {/* Gestisce il caso di pagina non trovata */}
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

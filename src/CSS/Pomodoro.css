@@ -1,0 +1,227 @@
+.pom-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(to left, #de6161, #2657eb);
+  }
+
+.pom-container > ul li {
+    list-style-type: none;
+  }
+
+.pom-container h1{
+    color: white;
+    margin-top: -5vh;
+}
+
+.pom-container .labels {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; 
+    z-index: 1;
+    background-color: rgb(255, 255, 255, 0.7);
+    border-radius: 20px 20px 20px 20px;
+    font-size:0.8rem;
+    padding: 0;
+}
+
+.pom-container .button-pom.active-label{
+    color: #0C0E1B;
+    background-color: #FBDA61;
+    background-image: linear-gradient(45deg, #FBDA61 0%, #FF5ACD 100%);
+    padding: 0.5rem;
+    opacity: 1;
+}
+
+.pom-container .button-pom{
+    background-color: white;
+    opacity: 0.5;
+    z-index: 1;
+    border:none;
+    background: none;
+    border-radius: 3rem;
+    cursor: pointer;
+    min-width: 80px;
+    color: black;
+}
+
+.button-wrapper button{
+    z-index: 1;
+    border-radius:3rem;
+    background-color: rgb(255, 255, 255, 0.6);
+    border:none;
+    margin: 0.5rem;
+    padding: 10px 25px 10px 25px;
+    color: black;
+}
+
+.button-wrapper button:hover{
+    opacity: 1;
+    background-color: #A9C9FF;
+    background-image: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.set{
+    margin-top: 20px;
+    background-color: rgb(255, 255, 255, 0.7);
+    border: none;
+    color: black;
+    border-radius:3rem;
+    padding: 0.5rem;
+    transition: 0.3s;
+    z-index: 1;
+    font-size:0.8rem;
+}
+
+.set:hover{
+    background-color: #4158D0;
+background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+
+    cursor: pointer;
+    color: white;
+}
+
+.button-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.timer-container {
+    display: flex;
+    flex:2;
+    align-items: center;
+    justify-content: center;
+}
+  
+.time-wrapper {
+    display: flex;
+    margin-top: 4vh;
+    align-items: center;
+    justify-content: center;
+    height: 15rem;
+    width: 15rem;
+    border-radius: 50%;
+    color:#efefef;
+    background: #151932;
+    font-size: 3.5rem;
+    box-shadow: 1rem 1.5rem 2rem rgba(0,0,0,0.6);
+    height: 300px; 
+    width: 300px;
+
+}
+
+  
+.button-wrapper button.active {
+    color: #0C0E1B;
+    background-color: #A9C9FF;
+    background-image: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
+    border: 1px solid #0C0E1B;
+}
+  
+.form-container {
+    text-align: center;
+}
+  
+/*
+.input-wrapper input {
+    height: 30px;
+    width: 30px;
+    padding: 2rem;
+    background-color: #0C0E1B;
+    color:#C9CCEA;
+    border: none;
+    border-radius: 50%;
+    margin-right: 0.3rem;
+    text-align: center;
+    font-size: 14pt;
+}*/
+  
+
+/*CSS animazione sfondo*/
+
+.pom-background-animation{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.pom-background-animation li{
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 25px;
+    height: 25px;
+    border: 10px solid rgba(255, 255, 255, 0.2);
+    animation: animate 20s linear infinite;
+    bottom: -150px;
+    border-radius: 10px;
+}
+
+.pom-background-animation li:nth-child(1){
+    left: 86%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 0s;
+}
+
+.pom-background-animation li:nth-child(2){
+    left: 12%;
+    width: 30px;
+    height: 30px;
+    animation-delay: 1.5s;
+    animation-duration: 10s;
+}
+
+.pom-background-animation li:nth-child(3){
+    left: 70%;
+    width: 100px;
+    height: 100px;
+    animation-delay: 5.5s;
+}
+
+.pom-background-animation li:nth-child(4){
+    left: 42%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 0s;
+    animation-duration: 15s;
+}
+
+.pom-background-animation li:nth-child(5){
+    left: 65%;
+    width: 40px;
+    height: 40px;
+    animation-delay: 0s;
+}
+
+.pom-background-animation li:nth-child(6){
+    left: 15%;
+    width: 110px;
+    height: 110px;
+    animation-delay: 3.5s;
+}
+
+@keyframes animate{
+    0%{
+        transform: translateY(0) rotate(0);
+        opacity: 1;
+    }
+
+    100%{
+        transform: translateY(-800px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
