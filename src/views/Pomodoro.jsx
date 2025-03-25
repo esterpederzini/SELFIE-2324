@@ -1,12 +1,10 @@
 
 import '../CSS/Pomodoro.css';
-
 import { useContext, useEffect } from 'react';
 import SetPomodoro from '../components/SetPomodoro';
 import CountdownAnimation from '../components/CountdownAnimation';
 import {SettingContext} from '../context/SettingsContext';
 import Button from '../components/Button';
-
 
 function Pomodoro(){
   

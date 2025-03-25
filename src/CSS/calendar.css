@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@300..700&display=swap');
+
 .calendar-app{
-    width: 60%;
+    width: 65%;
     min-width: 90vmin;
     aspect-ratio: 3 / 2;
     padding: 3rem;
@@ -27,6 +29,8 @@
 
 .calendar{
     width: 40%;
+    height: 100%;
+    
 }
 
 .heading{
@@ -41,7 +45,7 @@
     display: flex;
     align-items: center;
     column-gap: 0.5rem;
-    margin: 3.5rem 0;
+    margin: 3rem 0;
 }
 .navigate-date h2{
     font-size: clamp(1.5rem, 1.5cqi, 2.5rem);
@@ -71,7 +75,7 @@
 .weekdays{
     width: 100%;
     display: flex;
-    margin: 2rem 9rem 2rem 0;
+    margin: 1rem 9rem 1rem 0;
 }
 
 .weekdays span{
@@ -258,20 +262,20 @@
 
 .event-date{
     font-size: clamp(1rem, 1cqi, 1.2rem);
-    color: #ddd;
+    color: black;
 }
 
 .event-time{
     font-size: clamp(1.3rem, 1cqi, 1.6rem);
     line-height: 4rem;
     font-weight: bold;
-    color: #fff;
+    color: black;
 }
 
 .event-text{
     font-size: clamp(1.2rem, 1cqi, 1.4rem);
     line-height: 2rem;
-    color: #fff;
+    color: black;
     width: 75%;
     padding: 0 3rem 0 1rem;
     overflow-wrap: break-word;
@@ -289,7 +293,7 @@
 
 .event-buttons i{
     font-size: 1.6rem;
-    color: #fff;
+    color: black;
     cursor: pointer;
 }
 

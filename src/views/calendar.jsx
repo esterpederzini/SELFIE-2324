@@ -41,8 +41,8 @@ const Calendar = () => {
       ];
 
       const currentDayColors = [
-        '#f0512d', '#ddd','#cbf078', '#ffc6ff', '#fdffb6', '#ffcad4',  
-        '#f5e6e8', '#eee4e1', '#f5dd90', '#e6b89c', '#d5c6e0', '#caf0f8' 
+        '#8dc6ff', '#8ef6e4','#cbf078', '#ffc6ff', '#fdffb6', '#ffcad4',  
+        '#f5e6e8', '#eee4e1', '#f5dd90', '#e6b89c', '#d5c6e0', '#afc5ff' 
       ]
 
     const currentDate=new Date()
@@ -221,7 +221,11 @@ const Calendar = () => {
         </div>
         )}
         {events.map((event, index) => (
-          <div className="event" key={index}>
+          <div className="event" key={index}
+          style={{
+            backgroundColor: currentDayColors[currentMonth],
+          }}
+          >
           <div className="event-date-wrapper">
             <div className="event-date">
               {`${monthsOfYear[event.date.getMonth()]}

@@ -5,6 +5,7 @@
     justify-content: center;
     min-height: 100vh;
     background: linear-gradient(to left, #de6161, #2657eb);
+    width: 100%;
   }
 
 .pom-container > ul li {
