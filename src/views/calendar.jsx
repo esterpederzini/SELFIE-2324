@@ -36,13 +36,18 @@ const Calendar = () => {
       luglioImg, agostoImg, settembreImg, ottobreImg, novembreImg, dicembreImg]
 
       const monthColors = [
-        '#87bfff', '#bcf4f5', '#b8f2e6', '#ffc6ff', '#fdffb6', '#ffcad4',  
-        '#f5e6e8', '#eee4e1', '#f5dd90', '#e6b89c', '#d5c6e0', '#caf0f8'   
+        '#87bfff', '#bcf4f5', '#b8f2e6', '#f0e6ef', '#f4f4f9', '#efcfe3',  
+        '#f5e6e8', '#eee4e1', '#fcf5c7', '#e6b89c', '#d5c6e0', '#caf0f8'   
       ];
 
       const currentDayColors = [
         '#8dc6ff', '#8ef6e4','#cbf078', '#ffc6ff', '#fdffb6', '#ffcad4',  
-        '#f5e6e8', '#eee4e1', '#f5dd90', '#e6b89c', '#d5c6e0', '#afc5ff' 
+        '#e5989b', '#d1495b', '#f5cb5c', '#ce8964', '#b8b8ff', '#a3c4f3' 
+      ]
+
+      const eventPopupColors = [
+        '#00a3ff', '#00f5d4', '#0ead69', '#c200fb', '#ffd500', '#e87ea1', 
+        '#ffcad4', '#e63946', '#fe5d26', '#d98e73', '#6930c3', '#48bfe3'
       ]
 
     const currentDate=new Date()
@@ -52,6 +57,7 @@ const Calendar = () => {
     const[selectedDate, setSelectedDate]=useState(currentDate)
     const[showEventPopup, setShowEventPopup] = useState(false)
     const[events, setEvents] = useState([])
+    const[eventTitle, setEventTitle] = useState('')
     const[eventTime, setEventTime] = useState({hours: '00', minutes: '00'})
     const[eventText, setEventText] = useState('')
     const[editingEvent, setEditingEvent] = useState(null)
@@ -62,11 +68,17 @@ const Calendar = () => {
     const prevMonth=()=>{
       setCurrentMonth((prevMonth) => (prevMonth === 0 ? 11 : prevMonth-1))
       setCurrentYear((prevYear) => (currentMonth === 0 ? prevYear-1 : prevYear))
+      if(showEventPopup===true){
+        setShowEventPopup(false);
+      }
     }
 
     const nextMonth=()=>{
       setCurrentMonth((prevMonth) => (prevMonth === 11 ? 0 : prevMonth+1))
       setCurrentYear((prevYear) => (currentMonth === 11 ? prevYear+1 : prevYear))
+            if(showEventPopup===true){
+        setShowEventPopup(false);
+      }
     }
 
     const handleDayClick = (day) =>{
@@ -76,6 +88,7 @@ const Calendar = () => {
       if(clickedDate >= today || isSameDay(clickedDate, today)){
         setSelectedDate(clickedDate)
         setShowEventPopup(true)
+        setEventTitle("")
         setEventTime({hours: '00', minutes: '00'})
         setEventText('')
         setEditingEvent(null)
@@ -94,6 +107,7 @@ const Calendar = () => {
       const newEvent = {
         id: editingEvent ? editingEvent.id : Date.now(),
         date: selectedDate,
+        title: eventTitle,
         time: `${eventTime.hours.padStart(2, '0')}:${eventTime.minutes.padStart(2, '0')}`,
         text: eventText,
       }
@@ -110,6 +124,7 @@ const Calendar = () => {
       updatedEvents.sort((a, b) => new Date(a.date) - new Date(b.date))
 
       setEvents(updatedEvents)
+      setEventTitle("")
       setEventTime({hours: '00', minutes: '00'})
       setEventText("")
       setShowEventPopup(false)
@@ -118,6 +133,7 @@ const Calendar = () => {
 
     const handleEditEvents = (event) =>{
       setSelectedDate(new Date(event.date))
+      setEventTitle(event.title)
       setEventTime({
         hours: event.time.split(':')[0],
         minutes: event.time.split(':')[1],
@@ -176,7 +192,6 @@ const Calendar = () => {
                       : 'transparent',
             }}
             onMouseEnter={e => {
-              // Applica il colore di hover solo se non è il giorno corrente
               if (isCurrentDay(day)) {
                 e.target.style.backgroundColor = "#fff";
               }else{
@@ -184,7 +199,6 @@ const Calendar = () => {
               }
             }}
             onMouseLeave={e => {
-              // Rimuovi il colore di hover solo se non è il giorno corrente
               if (!(isCurrentDay(day))) {
                 e.target.style.backgroundColor = "transparent";
               }else{
@@ -199,28 +213,58 @@ const Calendar = () => {
       <div className="events">
         {showEventPopup && (
           <div className="event-popup">
+          <div className="title-input">
+            <input type='text' placeholder='Aggiungi titolo...' value={eventTitle}
+            onChange={(e)=>{
+              setEventTitle(e.target.value)
+            }}
+            ></input>
+          </div>
           <div className="time-input">
-            <div className="event-popup-time">Ora</div>
+            <div className="event-popup-time"
+              style={{
+                backgroundColor: eventPopupColors[currentMonth], 
+              }}
+            >Ora</div>
             <input type="number" name='hours' min={0} max={24} className='hours' value={eventTime.hours} 
-            onChange={handleTimeChange}/>
+            onChange={handleTimeChange}
+            style={{
+              borderTop: `0.2rem solid ${eventPopupColors[currentMonth]}`,  
+              borderBottom: `0.2rem solid ${eventPopupColors[currentMonth]}`,  
+            }}
+            />
             <input type="number" name='minutes' min={0} max={60} className='minutes'
             value={eventTime.minutes} 
-            onChange={handleTimeChange}/>
+            onChange={handleTimeChange}
+            style={{
+              borderTop: `0.2rem solid ${eventPopupColors[currentMonth]}`,  
+              borderBottom: `0.2rem solid ${eventPopupColors[currentMonth]}`,  
+            }}
+            />
           </div>
-          <textarea placeholder='Enter Text Event (Maximum 60 Characters)'
+          <textarea placeholder='Scrivi.. (Max 60 caratteri)'
           value={eventText} onChange={(e) => {
             if(e.target.value.length <= 60){
               setEventText(e.target.value)
             }
           }}
           ></textarea>
-          <button className="event-popup-btn" onClick={handleEventSubmit}>{editingEvent ? "Modifica Evento" : "Aggiungi Evento"}</button>
+          <button className="event-popup-btn" onClick={handleEventSubmit}
+            style={{
+             backgroundColor: eventPopupColors[currentMonth],
+          }}
+          >{editingEvent ? "Modifica Evento" : "Aggiungi Evento"}</button>
           <button className="close-event-popup" onClick={()=> setShowEventPopup(false)}>
             <i className="bx bx-x"></i>
           </button>
         </div>
         )}
-        {events.map((event, index) => (
+        {events
+        .filter(event => 
+          event.date.getMonth() === currentMonth && 
+          event.date.getFullYear() === currentYear
+          )
+        .map((event, index) => (
           <div className="event" key={index}
           style={{
             backgroundColor: currentDayColors[currentMonth],
@@ -232,6 +276,7 @@ const Calendar = () => {
                 ${event.date.getDate()}, ${event.date.getFullYear()}`}</div>
             <div className="event-time">{event.time}</div>
           </div>
+          <div className='event-title'>{event.title}</div>
           <div className="event-text">{event.text}</div>
           <div className="event-buttons">
             <i className="bx bxs-edit-alt" onClick={() => handleEditEvents(event)}></i>
