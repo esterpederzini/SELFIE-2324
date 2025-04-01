@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "../CSS/home.css";
 
 const HomePage = () => {
@@ -18,10 +19,11 @@ const HomePage = () => {
             </header>
             <nav>
                 <ul>
-                    <li><a href="#calendario">Calendario</a></li>
-                    <li><a href="#pomodoro">Pomodoro</a></li>
-                    <li><a href="#note">Note</a></li>
-                    <li><a href="#progetti">Progetti</a></li>
+                    <li><Link to="/calendar">Calendario</Link></li>
+                    <li><Link to="/pomodoro">Pomodoro</Link></li>
+                    <li><Link to="/note">Note</Link></li>
+                    <li><Link to="/timeMachine">Time Machine</Link></li>
+                    <li><Link to="/login">Login</Link></li>
                 </ul>
             </nav>
             <main>

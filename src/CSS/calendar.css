@@ -135,10 +135,11 @@
 
 .event-popup{
     position: absolute;
-    top: 38%;
+    top: 20%;
     left: 3rem;
     background-color: #161b22;
     width: clamp(25rem, 21cqi, 40rem);
+    height: clamp(25rem, 40cqi, 40rem);
     aspect-ratio: 9 / 10;
     border-radius: 1rem;
     box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3);
@@ -155,11 +156,88 @@
     width: 20rem;
     font-size: 2rem;
     text-align: center;
+    color: #fff;
 }
 
-.time-input{
+.title-input input:focus {
+    outline: none; 
+    border: none;  
+    color: #fff;
+}
+
+.event-duration-wrapper{
     display: flex;
-    column-gap: 1rem;
+    flex-direction: column;
+    width: 15rem;
+}
+
+.event-duration-wrapper input{
+    background-color: transparent;
+    color: #fff;
+    width: clamp(4rem, 3cqi, 7rem);
+    height: 3rem;
+    font-size: clamp(1.2rem, 1.2cqi, 1.6rem);
+}
+.start-wrap, .end-wrap{
+    display: flex;
+    flex-direction: row;
+}
+
+.react-datepicker__input-container input:focus {
+    border-color: none;  
+    outline: none; 
+    width: 7.6rem;
+}
+
+.react-datepicker__input-container input {
+    border: none;
+    width: 50%;
+    min-width: 7.6rem;
+}
+
+.react-datepicker__input-container{
+    border: none;
+    width: 5rem;
+    outline: none !important;
+}
+
+.react-time-picker__input-container input:focus,
+.react-time-picker__input:focus {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.react-time-picker__input-container input{
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.react-time-picker__input:focus, 
+.react-datepicker__input-container input:focus {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.react-time-picker{
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.react-time-picker:focus{
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+#timepicker-start:focus,
+#timepicker-end:focus {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 .event-popup-time{
@@ -175,27 +253,11 @@
     letter-spacing: 0.1rem;
 }
 
-.time-input input{
-    background-color: transparent;
-    border: none;
-    color: #fff;
-    width: clamp(4rem, 4cqi, 7rem);
-    height: 4rem;
+.event-title{
     text-align: center;
-    font-size: clamp(1.2rem, 1.2cqi, 1.6rem);
+    font-size: clamp(1.2rem, 1.3cqi, 1.6rem);
+    font-weight: bold;
 }
-
-.title-input input:focus {
-    outline: none; 
-    border: none;  
-    color: #fff;
-}
-
-.time-input input[type="number"]::-webkit-outer-spin-button,
-.time-input input[type="number"]::-webkit-inner-spin-button{
-    appearance: none;
-}
-
 .event-popup textarea{
     width: clamp(15rem, 15cqi, 25rem);
     aspect-ratio: 5 / 2;
@@ -254,14 +316,24 @@
 
 .event{
     width: 100%;
-    height: 7rem;
-    background-color: #00a3ff;
+    height: 8rem;
     padding: 1.5rem 0;
     border-radius: 1rem;
     display: flex;
     align-items: center;
     margin-bottom: 2rem;
     position: relative;
+}
+
+.event:hover{
+    cursor: pointer;
+}
+
+.event-context{
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    height: 7rem;
 }
 
 .event-date-wrapper{
@@ -282,6 +354,20 @@
     line-height: 4rem;
     font-weight: bold;
     color: black;
+}
+
+.event-duration{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    column-gap: 1.5rem;
+    color: #fff;
+    font-size: 1.5rem;
+    position: relative;
+}
+
+.bxs-toggle-right{
+    color: pink;
 }
 
 .event-text{
@@ -314,7 +400,7 @@
     .calendar-app{
         flex-direction: column;
         row-gap: 2rem;
-        aspect-ratio: 3 \ 2;
+        aspect-ratio: 3 / 2;
     }
 
     .calendar{
@@ -339,18 +425,13 @@
         top: 18%;
         left: 50%;
         transform: translateX(-50%);
-        aspect-ratio: 3 \ 4;
+        aspect-ratio: 3 / 4;
         row-gap: 1rem;
     }
 
     .event-popup-time{
         width: clamp(5rem, 10cqi, 8rem);
         font-size: clamp(1.5rem, 3cqi, 2.2rem);
-    }
-
-    .time-input input{
-        width: clamp(5rem, 10cqi, 8rem);
-        font-size: clamp(1.2rem, 2cqi, 1.6rem);
     }
 
     .event-popup textarea{
@@ -381,7 +462,7 @@
 
 @media(max-width: 500px){
     .calendar-app{
-        aspect-ratio: 10 \ 9;
+        aspect-ratio: 10 / 9;
     }
 
     .calendar{
@@ -400,6 +481,6 @@
 
 @media(max-width: 375px){
     .calendar-app{
-        aspect-ratio: 3 \ 2;
+        aspect-ratio: 3 / 2;
     }
 }
