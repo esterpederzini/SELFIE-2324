@@ -66,7 +66,7 @@ const HomePage = () => {
                 </section>
             </main>
             <footer>
-                <p>&copy; 2024 La Mia App</p>
+            <p>&copy; 2024 La Mia App</p>
             </footer>
         </div>
     );

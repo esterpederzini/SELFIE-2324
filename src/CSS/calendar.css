@@ -274,6 +274,7 @@
     border: 0.1rem solid #00a3ff;
 }
 
+
 .event-popup textarea::placeholder{
     font-size: clamp(1rem, 0.8cqi, 1.2rem);
     color: #78879e;

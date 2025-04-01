@@ -2,7 +2,6 @@
   box-sizing: border-box;
 }
 
-/*Per convertire 1 rem in 10px anzichè avere 1rem= 6px*/
 html{
     font-size: 62.5%;
 }

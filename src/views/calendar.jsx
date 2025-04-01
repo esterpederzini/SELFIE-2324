@@ -309,7 +309,7 @@ const Calendar = () => {
                 className="event-end-date"
                 onClick={() => document.getElementById("datepicker-end").focus()}
               >
-    {/* MUI DatePicker */}
+
     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DatePicker
                           value={endDate || currentDate}
