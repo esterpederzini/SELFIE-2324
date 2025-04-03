@@ -1,14 +1,10 @@
-import React from 'react'
+import * as React from 'react';
+import dayjs from 'dayjs';
 import '../CSS/calendar.css'
-import { useState, useRef } from 'react'
-import "react-datepicker/dist/react-datepicker.css";
-import 'react-time-picker/dist/TimePicker.css';
-
-import { TextField, Button } from '@mui/material';
-import { DatePicker, TimePicker } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { useState} from 'react'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import 'react-clock/dist/Clock.css';
+import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
 
 import gennaioImg from '../Img/gennaio.jpg';
 import febbraioImg from '../Img/febbraio.jpg';
@@ -59,32 +55,21 @@ const Calendar = () => {
   ]
 
   const currentDate=new Date()
-    
-  const [startDate, setStartDate] = useState(null);  
-  const [endDate, setEndDate] = useState(null); 
-
-  const [startTime, setStartTime] = useState(
-    new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-  )
-  const [endTime, setEndTime] = useState(
-    new Date(new Date().getTime() + 60 * 60 * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-  )
-  const [showTimePicker, setShowTimePicker] = useState(false);
-
   const[currentMonth, setCurrentMonth]= useState(currentDate.getMonth())
   const[currentYear, setCurrentYear]= useState(currentDate.getFullYear())
-  const[selectedDate, setSelectedDate]=useState(currentDate)
+  const daysInMonth = new Date(currentYear, currentMonth+1, 0).getDate()
+  const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay()
+  const[selectedDate, setSelectedDate]=useState(dayjs())
+  const [startDate, setStartDate] = useState(dayjs());  
+  const [endDate, setEndDate] = useState(dayjs());
   const[showEventPopup, setShowEventPopup] = useState(false)
   const[events, setEvents] = useState([])
   const[eventTitle, setEventTitle] = useState('')
   const[eventTime, setEventTime] = useState({hours: '00', minutes: '00'})
   const[eventText, setEventText] = useState('')
   const[editingEvent, setEditingEvent] = useState(null)
-
-  const daysInMonth = new Date(currentYear, currentMonth+1, 0).getDate()
-  const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay()
-
   const[allDayDuration, setAllDayDuration] = useState(false)
+  
     
   const prevMonth=()=>{
     setCurrentMonth((prevMonth) => (prevMonth === 0 ? 11 : prevMonth-1))
@@ -127,12 +112,12 @@ const Calendar = () => {
   const handleEventSubmit = () =>{
     const newEvent = {
       id: editingEvent ? editingEvent.id : Date.now(),
-      date: selectedDate,
+      date: allDayDuration ? currentDate : startDate?.toDate(),
       title: eventTitle.trim() === "" ? "(Senza Titolo)" : eventTitle,
       time: `${eventTime.hours.padStart(2, '0')}:${eventTime.minutes.padStart(2, '0')}`,
       text: eventText,
-      startDate,
-      endDate,
+      startDate: allDayDuration ? currentDate : startDate?.toDate(),
+      endDate: allDayDuration ? currentDate : endDate?.toDate()
   }
 
     let updatedEvents = [...events]
@@ -179,6 +164,14 @@ const Calendar = () => {
     setEvents(updatedEvents)
   }
 
+  const handleStartDateChange = (newValue) => {
+    setStartDate(newValue);
+  };
+
+  const handleEndDateChange = (newValue) => {
+    setEndDate(newValue);
+  };
+
   const isCurrentDay = (day) => {
     if(day + 1 === currentDate.getDate() && currentMonth === currentDate.getMonth() && currentYear === currentDate.getFullYear()){
       return true;
@@ -196,10 +189,9 @@ const Calendar = () => {
     setAllDayDuration(prevState => !prevState);
   };
 
-
   return (
     <div className='calendar-app'
-      style={{ backgroundImage: `url(${monthImg[currentMonth]})`, 
+     style={{ backgroundImage: `url(${monthImg[currentMonth]})`, 
       backgroundSize: 'cover', 
       backgroundPosition: 'center'
     }}
@@ -278,56 +270,22 @@ const Calendar = () => {
           </div>
           {!allDayDuration &&(
           <>
-        <div className='event-duration-wrapper'>
-            <div className="start-wrap">
-              <div 
-                className="event-start-date"
-                onClick={() => document.getElementById("datepicker-start").focus()}
-              >
-                {/* MUI DatePicker */}
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DatePicker
-                          value={startDate || currentDate}
-                          onChange={(date) => setStartDate(date)}
-                          renderInput={(params) => <TextField {...params} />}
-                        />
-                      </LocalizationProvider>
-                    </div>
-                    <div className="event-start-time">
-                      {/* MUI TimePicker */}
-                      <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <TimePicker
-                          value={startTime}
-                          onChange={(time) => setStartTime(time)}
-                          renderInput={(params) => <TextField {...params} />}
-                        />
-                      </LocalizationProvider>
-                    </div>
-                  </div>
-            <div className="end-wrap">
-              <div 
-                className="event-end-date"
-                onClick={() => document.getElementById("datepicker-end").focus()}
-              >
-
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DatePicker
-                          value={endDate || currentDate}
-                          onChange={(date) => setEndDate(date)}
-                          renderInput={(params) => <TextField {...params} />}
-                        />
-                      </LocalizationProvider>
-                    </div>
-                    <div className="event-end-time">
-                      {/* MUI TimePicker */}
-                      <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <TimePicker
-                          value={endTime}
-                          onChange={(time) => setEndTime(time)}
-                          renderInput={(params) => <TextField {...params} />}
-                        />
-                      </LocalizationProvider>
-              </div>
+          <div className='event-duration-wrapper'>
+            <div className="event-start-wrap">
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <MobileDateTimePicker 
+                  value={startDate} 
+                  onChange={handleStartDateChange}
+                  renderInput={(props) => <input {...props} />}></MobileDateTimePicker>
+            </LocalizationProvider>
+            </div>
+            <div className="event-end-wrap">
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <MobileDateTimePicker 
+                  value={endDate} 
+                  onChange={handleEndDateChange}
+                  renderInput={(props) => <input {...props} />}></MobileDateTimePicker>
+              </LocalizationProvider>
             </div>
           </div>
           </>
@@ -376,7 +334,7 @@ const Calendar = () => {
           </div>
         </div>
         ))}
-      </div>
+      </div> 
     </div>
   )
 }

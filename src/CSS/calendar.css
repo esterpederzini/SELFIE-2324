@@ -169,6 +169,7 @@
     display: flex;
     flex-direction: column;
     width: 15rem;
+    border: 1px solid purple;
 }
 
 .event-duration-wrapper input{
@@ -176,69 +177,23 @@
     color: #fff;
     width: clamp(4rem, 3cqi, 7rem);
     height: 3rem;
-    font-size: clamp(1.2rem, 1.2cqi, 1.6rem);
 }
-.start-wrap, .end-wrap{
+
+.event-start-wrap, .event-end-wrap{
     display: flex;
     flex-direction: row;
 }
 
-.react-datepicker__input-container input:focus {
-    border-color: none;  
-    outline: none; 
-    width: 7.6rem;
-}
-
-.react-datepicker__input-container input {
+.MuiInputBase-root{
+    width: 15rem;
     border: none;
-    width: 50%;
-    min-width: 7.6rem;
 }
 
-.react-datepicker__input-container{
-    border: none;
-    width: 5rem;
-    outline: none !important;
+.MuiInputBase-input{
+    width: 100%;
+    border: 1px solid green;
 }
 
-.react-time-picker__input-container input:focus,
-.react-time-picker__input:focus {
-    outline: none !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-.react-time-picker__input-container input{
-    outline: none !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-.react-time-picker__input:focus, 
-.react-datepicker__input-container input:focus {
-    outline: none !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-.react-time-picker{
-    outline: none !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-.react-time-picker:focus{
-    outline: none !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-#timepicker-start:focus,
-#timepicker-end:focus {
-    outline: none !important;
-    border: none !important;
-    box-shadow: none !important;
-}
 
 .event-popup-time{
     width: clamp(4rem, 4cqi, 7rem);
