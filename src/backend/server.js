@@ -5,15 +5,15 @@ const cors = require('cors');
 const app = express();
 const PORT = 5000; 
 
-const MONGODB_URI = 'mongodb://site242525:baexi6Ee@mongo_site242525:27017/admin';
+const MONGODB_URI = "mongodb+srv://esterpederzini:ngwMyEe2H1TkKMuB@clusterselfie.k0te13b.mongodb.net/?retryWrites=true&w=majority&appName=ClusterSelfie";
 
 app.use(cors());
 app.use(express.json());
 
 // 🔌 Connessione al MongoDB
 mongoose.connect(MONGODB_URI)
-.then(() => console.log('✅ Connessione al MongoDB riuscita!'))
-.catch(err => console.error('❌ Errore nella connessione:', err));
+.then(() => console.log('Connessione al MongoDB riuscita!'))
+.catch(err => console.error('Errore nella connessione:', err));
 
 // ✅ Rotta di test
 app.get('/ping', (req, res) => {
@@ -21,5 +21,5 @@ app.get('/ping', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server avviato su http://localhost:${PORT}`);
+  console.log(`Server avviato su http://localhost:${PORT}`);
 });
