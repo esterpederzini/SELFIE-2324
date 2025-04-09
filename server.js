@@ -30,16 +30,22 @@ const mongoose = require("mongoose");
 const app = express();
 const PORT = 80; // richiesto da Gocker
 
+console.log("🔁 Tentativo di connessione a MongoDB...");
+
 // Connessione a MongoDB
+
 mongoose.connect("mongodb://site242525:baexi6Ee@mongo_site242525:27017/mydb?authSource=admin")
-  .then(() => console.log("Connesso a MongoDB"))
-  .catch(err => console.error("Errore MongoDB:", err));
+  .then(() => {
+    console.log("✅ Connesso a MongoDB");
 
-// Esempio di rotta
-app.get("/", (req, res) => {
-  res.send("Ciao dal tuo container Node + Mongo!");
-});
+    app.get("/", (req, res) => {
+      res.send("Server e MongoDB attivi!");
+    });
 
-app.listen(PORT, () => {
-  console.log(`Server avviato su http://localhost:${PORT}`);
-});
+    app.listen(PORT, () => {
+      console.log(`Server avviato su porta ${PORT}`);
+    });
+  })
+  .catch(err => {
+    console.error("Errore nella connessione a MongoDB:", err);
+  });
