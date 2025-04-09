@@ -1,4 +1,4 @@
-const express = require('express');
+/*const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
@@ -18,6 +18,26 @@ mongoose.connect(MONGODB_URI)
 // ✅ Rotta di test
 app.get('/ping', (req, res) => {
   res.json({ message: 'Backend è attivo e connesso a MongoDB' });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server avviato su http://localhost:${PORT}`);
+});*/
+
+const express = require("express");
+const mongoose = require("mongoose");
+
+const app = express();
+const PORT = 80; // richiesto da Gocker
+
+// Connessione a MongoDB
+mongoose.connect("mongodb://site242525:baexi6Ee@mongo_site242525:27017/mydb?authSource=admin")
+  .then(() => console.log("Connesso a MongoDB"))
+  .catch(err => console.error("Errore MongoDB:", err));
+
+// Esempio di rotta
+app.get("/", (req, res) => {
+  res.send("Ciao dal tuo container Node + Mongo!");
 });
 
 app.listen(PORT, () => {
