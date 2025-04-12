@@ -1,0 +1,35 @@
+/* Navigation Styles */
+.navbar-container{
+    height: clamp(3rem, 4cqi, 7rem);
+    z-index: 1;
+}
+
+nav {
+    margin-bottom: 2rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    background-color: #6a1b9a;
+    border-radius: 1.2rem;
+}
+
+nav ul li {
+    margin: 0;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 15px 20px;
+    display: block;
+    transition: 0.3s;
+    font-size: clamp(1rem, 1cqi, 4rem);
+}
+
+nav ul li a:hover {
+    background-color: #8e24aa;
+    border-radius: 1.2rem;
+}

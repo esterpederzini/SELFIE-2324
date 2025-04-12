@@ -13,9 +13,30 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log("Login attempt:", formData);
+    
+    try {
+      const response = await fetch("http://localhost:5000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        console.log("Login riuscito", data);
+      } else {
+        console.error("Errore nel login", data.error);
+        alert("Credenziali errate");
+      }
+    } catch (error) {
+      console.error("Errore nella richiesta:", error);
+      alert("Errore nel server");
+    }
   };
 
   return (
@@ -68,7 +89,7 @@ const Login = () => {
         src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
       ></script>
       <script
-        nomodule
+        noModule
         src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
       ></script>
     </section>
