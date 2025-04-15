@@ -17,8 +17,8 @@ console.log("Tentativo di connessione a MongoDB...");
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect("mongodb+srv://esterpederzini:ngwMyEe2H1TkKMuB@clusterselfie.k0te13b.mongodb.net/?retryWrites=true&w=majority&appName=ClusterSelfie")
-//mongoose.connect("mongodb://site242525:baexi6Ee@mongo_site242525:27017/mydb?authSource=admin")
+//mongoose.connect("mongodb+srv://esterpederzini:ngwMyEe2H1TkKMuB@clusterselfie.k0te13b.mongodb.net/?retryWrites=true&w=majority&appName=ClusterSelfie")
+mongoose.connect("mongodb://site242525:baexi6Ee@mongo_site242525:27017/mydb?authSource=admin")
   .then(async() => {
     console.log("Connesso a MongoDB");
 
