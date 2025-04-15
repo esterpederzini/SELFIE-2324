@@ -9,22 +9,26 @@ app.use(express.static(path.join(__dirname, 'build')));
 /*app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });*/
-const PORT = 8000;
-//const PORT = 5000;
+//const PORT = 8000;
+const PORT = 5000;
 
 console.log("Tentativo di connessione a MongoDB...");
 
-app.use(cors());
+//app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',  // Sostituisci con il tuo frontend
+  methods: 'GET,POST',
+  allowedHeaders: 'Content-Type',
+}));
 app.use(express.json());
 
-//mongoose.connect("mongodb+srv://esterpederzini:ngwMyEe2H1TkKMuB@clusterselfie.k0te13b.mongodb.net/?retryWrites=true&w=majority&appName=ClusterSelfie")
-mongoose.connect("mongodb://site242525:baexi6Ee@mongo_site242525:27017/mydb?authSource=admin")
+mongoose.connect("mongodb+srv://esterpederzini:ngwMyEe2H1TkKMuB@clusterselfie.k0te13b.mongodb.net/?retryWrites=true&w=majority&appName=ClusterSelfie")
+//mongoose.connect("mongodb://site242525:baexi6Ee@mongo_site242525:27017/mydb?authSource=admin")
   .then(async() => {
     console.log("Connesso a MongoDB");
 
     app.get("/", (req, res) => {
       res.send("Server e MongoDB attivi!");
-      console.log('funzionaaa')
     });
 
     app.post("/login", async (req, res) => {
@@ -48,7 +52,7 @@ mongoose.connect("mongodb://site242525:baexi6Ee@mongo_site242525:27017/mydb?auth
       }
     });
 
-    // Aggiungi un utente di test se non esiste già
+    /* Aggiungi un utente di test se non esiste già
     const userExists = await User.findOne({ username: "testuser" });
     if (!userExists) {
       const newUser = new User({
@@ -62,7 +66,7 @@ mongoose.connect("mongodb://site242525:baexi6Ee@mongo_site242525:27017/mydb?auth
 
       await newUser.save();
       console.log("Utente di test inserito:", newUser);
-    }
+    }*/
 
     app.listen(PORT, () => {
       console.log(`Server avviato su porta ${PORT}`);
